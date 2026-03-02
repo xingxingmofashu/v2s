@@ -1,12 +1,5 @@
-import { defineRoutes } from "./utils/define";
-
-const routes = await defineRoutes()
+import { defineRoutes } from "./server/utils/define";
 
 Bun.serve({
-  routes: routes,
-  error(error) {
-    return new Response(`Error: ${error.message}`, {
-      status: 500
-    })
-  }
+  routes: await defineRoutes()
 })
