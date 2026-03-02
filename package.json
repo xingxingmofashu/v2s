@@ -3,7 +3,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev":"bun run src/index.ts"
+    "dev":"bun run ./src/index.ts",
+    "build":"bun run build.ts"
   },
   "devDependencies": {
     "@tsconfig/bun": "^1.0.10",
