@@ -1,6 +1,6 @@
 import { join } from "path"
 import { defineRoute } from "../../utils/define"
-import { V2RAYSHARE_CONFIG } from '../../utils/config'
+import { V2RAYSHARE_CONFIG } from '../../utils/constants'
 
 const { domain, clash } = V2RAYSHARE_CONFIG
 export default defineRoute(
