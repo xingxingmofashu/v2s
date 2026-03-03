@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>v2ray Share Latest</title>
+  <title>v2ray Share Subscribe</title>
   <style>
     * {
       margin: 0;
@@ -128,10 +128,28 @@
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border-radius: 8px;
-      padding: 12px 16px;
       margin-bottom: 12px;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
       border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .url-box span {
+      color: rgba(113, 128, 150, 0.8);
+
+    }
+
+    .url-box input {
+      border: none;
+      border-bottom: 1px solid #d1d5db;
+      width: 80px;
+    }
+
+    .url-box input:focus {
+      outline: none;
+      border-bottom: 1px solid #d1d5db;
     }
 
     .url-box code {
@@ -148,7 +166,8 @@
       backdrop-filter: blur(5px);
       color: #110d0f;
       border: 1px solid rgba(0, 0, 0, 0.4);
-      padding: 12px 20px;
+      padding: 8px 20px;
+      margin-bottom: 8px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 0.95rem;
@@ -190,7 +209,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>v2ray Share Latest</h1>
+      <h1>V2Ray Share</h1>
       <p>Click to copy your subscription URL</p>
     </div>
 
@@ -204,9 +223,20 @@
           </div>
         </div>
         <div class="url-box">
+          <span>Lastest</span>
           <code id="v2ray-url"></code>
         </div>
         <button class="copy-btn" onclick="copyUrl('v2ray-url', this)">
+          <span>📋 Copy URL</span>
+        </button>
+        <div class="url-box">
+          <span>Customize Date: such as 20260101</span>
+          <div style="display: flex;">
+            <code id="v2ray-url-date"></code>
+            <input type="text" maxlength="8" pattern="[0-9]*" minlength="8" id="v2ray-url-date-input">
+          </div>
+        </div>
+        <button class="copy-btn" onclick="copyUrl('v2ray-url-date', this)">
           <span>📋 Copy URL</span>
         </button>
       </div>
@@ -220,9 +250,18 @@
           </div>
         </div>
         <div class="url-box">
+          <span>Lastest</span>
           <code id="clash-url"></code>
         </div>
         <button class="copy-btn" onclick="copyUrl('clash-url', this)">
+          <span>📋 Copy URL</span>
+        </button>
+        <div class="url-box">
+          <span>Customize Date: such as 20260101</span>
+          <code id="clash-url-date"></code>
+          <input type="text" maxlength="8" pattern="[0-9]*" minlength="8" id="clash-url-date-input">
+        </div>
+        <button class="copy-btn" onclick="copyUrl('clash-url-date', this)">
           <span>📋 Copy URL</span>
         </button>
       </div>
@@ -238,7 +277,16 @@
         <div class="url-box">
           <code id="mihomo-url"></code>
         </div>
+
         <button class="copy-btn" onclick="copyUrl('mihomo-url', this)">
+          <span>📋 Copy URL</span>
+        </button>
+        <div class="url-box">
+          <span>Customize Date: such as 20260101</span>
+          <code id="mihomo-url-date"></code>
+          <input type="text" maxlength="8" minlength="8" id="mihomo-url-date-input">
+        </div>
+        <button class="copy-btn" onclick="copyUrl('mihomo-url-date', this)">
           <span>📋 Copy URL</span>
         </button>
       </div>
@@ -251,16 +299,30 @@
 
     // Set URLs dynamically
     document.getElementById('v2ray-url').textContent = `${baseUrl}/api/subscribe/v2ray`;
+    document.getElementById('v2ray-url-date').textContent = `${baseUrl}/api/subscribe/v2ray/`;
+
     document.getElementById('clash-url').textContent = `${baseUrl}/api/subscribe/clash`;
+    document.getElementById('clash-url-date').textContent = `${baseUrl}/api/subscribe/clash/`;
+
     document.getElementById('mihomo-url').textContent = `${baseUrl}/api/subscribe/mihomo`;
+    document.getElementById('mihomo-url-date').textContent = `${baseUrl}/api/subscribe/mihomo/`;
 
     function copyUrl(elementId, button) {
       const urlElement = document.getElementById(elementId);
-      const text = urlElement.textContent;
+      let text = urlElement.textContent;
+
+      if (elementId.includes("-date")) {
+        const input = document.getElementById(elementId + "-input");
+        if (input.value && /^[1-9]\d{7}$/.test(input.value))
+          text += input.value
+        else {
+          alert("Please enter the date in the correct format.")
+        }
+      }
 
       navigator.clipboard.writeText(text).then(() => {
         const originalContent = button.innerHTML;
-        button.innerHTML = '<span>✅ Copied!</span>';
+        button.innerHTML = '<span>Copied!</span>';
         button.classList.add('copied');
         setTimeout(() => {
           button.innerHTML = originalContent;
