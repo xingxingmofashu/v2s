@@ -3,10 +3,13 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev":"bun run ./src/index.ts",
-    "build":"bun run build.ts"
+    "build": "bunx nitro build",
+    "dev": "bunx nitro dev",
+    "preview": "bun run ./.output/server/index.mjs"
   },
   "devDependencies": {
+    "h3": "1.15.4",
+    "nitropack": "2.12.4",
     "@tsconfig/bun": "^1.0.10",
     "@types/bun": "1.3.9"
   },
