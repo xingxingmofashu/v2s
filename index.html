@@ -132,7 +132,6 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      flex-wrap:wrap;
       gap: 6px;
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
@@ -232,7 +231,7 @@
         </button>
         <div class="url-box">
           <span>Customize Date: such as 20260101</span>
-          <div style="display: flex;">
+          <div style="display: flex;flex-wrap:wrap;">
             <code id="v2ray-url-date"></code>
             <input type="text" maxlength="8" pattern="[0-9]*" minlength="8" id="v2ray-url-date-input">
           </div>
